@@ -20,7 +20,7 @@
                         {{ __('Categories') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('admin.banks.index')" :active="request()->routeIs('admin.banks.index')">
+                    <x-nav-link :href="route('admin.package_banks.index')" :active="request()->routeIs('admin.package_banks.index')">
                         {{ __('Banks') }}
                     </x-nav-link>
 
