@@ -41,7 +41,7 @@ Route::middleware('auth')->group(function () {
        Route::get('/booking/{packageTour:slug}', [FrontController::class, 'booking'])->name('front.booking');
        Route::post('/booking/save/{packageTour:slug}', [FrontController::class, 'booking_store'])->name('front.booking_store');
        Route::get('/booking/choose_bank/{packageBooking}', [FrontController::class, 'choose_bank'])->name('front.choose_bank');
-       Route::patch('booking/save/{packageBooking}', [FrontController::class, 'choose_bank_store'])->name('front.choose_bank.store');
+       Route::patch('booking/save/{packageBooking}', [FrontController::class, 'choose_bank_store'])->name('front.choose_bank_store');
        Route::get('/booking/payment/{packageBooking}', [FrontController::class, 'booking_payment'])->name('front.booking_payment');
        Route::patch('/booking/payment/save/{packageBooking}', [FrontController::class, 'booking_payment_store'])->name('front.booking_payment_store');
        Route::get('/booking-finish', [FrontController::class, 'booking_finish'])->name('front.booking_finish');
@@ -49,8 +49,8 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::middleware('can:view orders')->group( function () {
-           Route::get('/my-bookings', [DashboardController::class, 'my_bookings'])->name('bookings');
-           Route::get('my-bookings/detail/{packageBookings}', [DashboardController::class, 'booking_detail'])->name('bookings.detail');
+           Route::get('/my-bookings', [FrontController::class, 'my_bookings'])->name('bookings');
+           Route::get('my-bookings/detail/{packageBooking}', [FrontController::class, 'booking_detail'])->name('booking_detail');
         });
     });
 
@@ -60,6 +60,9 @@ Route::middleware('auth')->group(function () {
         });
         Route::middleware('can:manage packages')->group(function () {
             Route::resource('package_tours', PackageTourController::class);
+        });
+        Route::middleware('can:manage package banks')->group(function () {
+            Route::resource('package_banks', PackageBankController::class);
         });
         Route::middleware('can:manage bookings')->group(function () {
             Route::resource('package_bookings', PackageBookingController::class); 

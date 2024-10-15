@@ -5,7 +5,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ url('/') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
                     </a>
                 </div>
@@ -15,22 +15,30 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    
+                    @role('customer')
+                        <x-nav-link :href="route('dashboard.bookings')" :active="request()->is('dashboard.bookings')">
+                            {{ __('My Bookings') }}
+                        </x-nav-link>
+                    @endrole
 
-                    <x-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.index')">
-                        {{ __('Categories') }}
-                    </x-nav-link>
+                    @role('super_admin')
+                        <x-nav-link :href="route('admin.categories.index')" :active="request()->is('admin/categories*')">
+                            {{ __('Categories') }}
+                        </x-nav-link>
 
-                    <x-nav-link :href="route('admin.package_banks.index')" :active="request()->routeIs('admin.package_banks.index')">
-                        {{ __('Banks') }}
-                    </x-nav-link>
+                        <x-nav-link :href="route('admin.package_banks.index')" :active="request()->is('admin/package_banks*')">
+                            {{ __('Banks') }}
+                        </x-nav-link>
 
-                    <x-nav-link :href="route('admin.package_tours.index')" :active="request()->routeIs('admin.package_tours.index')">
-                        {{ __('Package Tours') }}
-                    </x-nav-link>
+                        <x-nav-link :href="route('admin.package_tours.index')" :active="request()->is('admin/package_tours*')">
+                            {{ __('Package Tours') }}
+                        </x-nav-link>
 
-                    <x-nav-link :href="route('admin.transactions.index')" :active="request()->routeIs('admin.transactions.index')">
-                        {{ __('Transactions') }}
-                    </x-nav-link>
+                        <x-nav-link :href="route('admin.package_bookings.index')" :active="request()->is('admin.transactions*')">
+                            {{ __('Package Bookings') }}
+                        </x-nav-link>
+                    @endrole
                 </div>
             </div>
 
@@ -99,6 +107,30 @@
                 <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
+
+                @role('customer')
+                    <x-responsive-nav-link :href="route('dashboard.bookings')" :active="request()->routeIs('dashboard.bookings')">
+                        {{ __('My Bookings') }}
+                    </x-responsive-nav-link>
+                @endrole
+
+                @role('super_admin')
+                    <x-responsive-nav-link :href="route('admin.categories.index')" :active="request()->is('admin/categories*')">
+                        {{ __('Categories') }}
+                    </x-responsive-nav-link>
+
+                    <x-responsive-nav-link :href="route('admin.package_banks.index')" :active="request()->is('admin/package_banks*')">
+                        {{ __('Banks') }}
+                    </x-responsive-nav-link>
+
+                    <x-responsive-nav-link :href="route('admin.package_tours.index')" :active="request()->is('admin/package_tours*')">
+                        {{ __('Package Tours') }}
+                    </x-responsive-nav-link>
+
+                    <x-responsive-nav-link :href="route('admin.package_bookings.index')" :active="request()->is('admin.transactions*')">
+                        {{ __('Package Bookings') }}
+                    </x-responsive-nav-link>
+                @endrole
 
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
