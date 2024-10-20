@@ -17,7 +17,7 @@
                 </div>
             </a>
         @empty
-            <p class="text-center text-white bg-red-500 rounded-full py-4 font-bold">Sorry, the Categories data not available</p>
+            <p class="text-center w-full text-white bg-red-500 rounded-full py-4 font-bold">Sorry, the Categories data not available</p>
         @endforelse
         {{-- <a href="category.html" class="group px-2 first-of-type:pl-4 last-of-type:pr-4">
             <div class="p-3 flex items-center gap-2 rounded-[10px] border border-[#4D73FF] group-hover:bg-[#4D73FF] transition-all duration-300">

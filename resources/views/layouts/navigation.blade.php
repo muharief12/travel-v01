@@ -35,7 +35,7 @@
                             {{ __('Package Tours') }}
                         </x-nav-link>
 
-                        <x-nav-link :href="route('admin.package_bookings.index')" :active="request()->is('admin.transactions*')">
+                        <x-nav-link :href="route('admin.package_bookings.index')" :active="request()->is('admin/package_bookings*')">
                             {{ __('Package Bookings') }}
                         </x-nav-link>
                     @endrole
@@ -127,7 +127,7 @@
                         {{ __('Package Tours') }}
                     </x-responsive-nav-link>
 
-                    <x-responsive-nav-link :href="route('admin.package_bookings.index')" :active="request()->is('admin.transactions*')">
+                    <x-responsive-nav-link :href="route('admin.package_bookings.index')" :active="request()->is('admin/package_bookings*')">
                         {{ __('Package Bookings') }}
                     </x-responsive-nav-link>
                 @endrole

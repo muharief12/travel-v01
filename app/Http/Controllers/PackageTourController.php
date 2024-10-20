@@ -9,6 +9,7 @@ use App\Models\PackageTour;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage; // Tambahkan ini
 
 class PackageTourController extends Controller
 {
@@ -91,6 +92,19 @@ class PackageTourController extends Controller
            $packageTour->update($validated);
 
            if ($request->hasFile('photos')) {
+                // Cek apakah ada foto yang sudah ada
+                $existingPhotos = $packageTour->photos;
+
+                // Jika ada, hapus foto lama dari storage dan database
+                if ($existingPhotos->isNotEmpty()) {
+                    foreach ($existingPhotos as $existingPhoto) {
+                        // Hapus file dari storage
+                        Storage::disk('public')->delete($existingPhoto->photo);
+                        
+                        // Hapus data foto dari database
+                        $existingPhoto->delete();
+                    }
+                }
                 foreach ($request->file('photos') as $photo) {
                     $photoPath = $photo->store('package_photos/'.date('Y/m/d'),'public');
                     $packageTour->photos()->create([
